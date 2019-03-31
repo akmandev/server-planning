@@ -32,8 +32,6 @@
     },
     "scripts": {
         "test": [
-            "@composer validate",
-            "@composer install",
             "vendor/bin/phpunit",
             "vendor/bin/phpcs",
             "vendor/bin/phpstan analyse src --level 7"

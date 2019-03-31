@@ -1,0 +1,50 @@
+#!/usr/bin/env php
+<?php
+
+require __DIR__ . '/../vendor/autoload.php';
+
+use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use OzanAkman\ServerPlanner;
+
+define('DATA_PATH', __DIR__ . '/../data');
+
+
+(new Application('calculate', '1.0.0'))
+    ->register('calculate')
+    ->setCode(function (InputInterface $input, OutputInterface $output) {
+        $output->writeln([
+            'Server Resource Calculator',
+            '==========================',
+            '',
+        ]);
+
+        $serverTypeComponents = json_decode(file_get_contents(DATA_PATH . '/ServerType.json'));
+        $serverTypeResources = new ServerPlanner\Resources(
+            $serverTypeComponents->cpu,
+            $serverTypeComponents->ram,
+            $serverTypeComponents->hdd
+        );
+        $serverType = new ServerPlanner\ServerType($serverTypeResources);
+
+        $virtualMachineComponents = json_decode(file_get_contents(DATA_PATH . '/VirtualMachines.json'));
+        $virtualMachines = [];
+
+        foreach ($virtualMachineComponents as $component) {
+            $virtualMachines[] = new ServerPlanner\VirtualMachine(
+                new ServerPlanner\Resources(
+                    $component->cpu,
+                    $component->ram,
+                    $component->hdd
+                )
+            );
+        }
+
+        $result = (new ServerPlanner\Calculator())->calculate($serverType, $virtualMachines);
+
+        $output->writeln("{$result} Servers needed for " . count($virtualMachines) . " Virtual Machines");
+    })
+    ->getApplication()
+    ->setDefaultCommand('calculate', true)
+    ->run();
