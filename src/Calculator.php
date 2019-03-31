@@ -25,7 +25,7 @@ final class Calculator
 
         foreach ($virtualMachines as $virtualMachine) {
             if (!$server->canFit($virtualMachine)) {
-                throw new Exception('This virtual machine does not fit server of given type.');
+                throw new Exception('This virtual machine does not fit to server of the given type.');
             }
 
             if ($server->hasResourcesFor($virtualMachine)) {
