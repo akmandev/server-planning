@@ -3,16 +3,27 @@
 namespace OzanAkman\ServerPlanner\Tests;
 
 use Exception;
+use PHPUnit\Framework\TestCase;
 use OzanAkman\ServerPlanner\Calculator;
 use OzanAkman\ServerPlanner\Resources;
 use OzanAkman\ServerPlanner\ServerType;
 use OzanAkman\ServerPlanner\VirtualMachine;
-use PHPUnit\Framework\TestCase;
 
 class CalculatorTest extends TestCase
 {
     /**
-     * @dataProvider dataProvider
+     * @var Calculator
+     */
+    private $subject;
+
+    public function setUp()
+    {
+        $this->subject = new Calculator();
+    }
+
+
+    /**
+     * @dataProvider calculateDataProvider
      * @param ServerType $serverType
      * @param array $virtualMachines
      * @param int $expectedResult
@@ -20,11 +31,10 @@ class CalculatorTest extends TestCase
      */
     public function testCalculate(ServerType $serverType, array $virtualMachines, int $expectedResult)
     {
-        $subject = new Calculator();
-        $this->assertEquals($expectedResult, $subject->calculate($serverType, $virtualMachines));
+        $this->assertEquals($expectedResult, $this->subject->calculate($serverType, $virtualMachines));
     }
 
-    public function dataProvider()
+    public function calculateDataProvider()
     {
         return [
             [
@@ -54,5 +64,16 @@ class CalculatorTest extends TestCase
                 3
             ]
         ];
+    }
+
+    public function testCalculateThrowsExceptionWhenVirtualMachinesResourcesHigherThanServerType()
+    {
+        $serverType = new ServerType(new Resources(2, 16, 50));
+        $virtualMachines = [
+            new VirtualMachine(new Resources(2, 32, 10)),
+        ];
+
+        $this->expectException(Exception::class);
+        $this->subject->calculate($serverType, $virtualMachines);
     }
 }
