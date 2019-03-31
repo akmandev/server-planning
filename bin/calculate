@@ -10,7 +10,6 @@ use OzanAkman\ServerPlanner;
 
 define('DATA_PATH', __DIR__ . '/../data');
 
-
 (new Application('calculate', '1.0.0'))
     ->register('calculate')
     ->setCode(function (InputInterface $input, OutputInterface $output) {
