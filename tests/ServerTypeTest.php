@@ -2,9 +2,9 @@
 
 namespace OzanAkman\ServerPlanner\Tests;
 
+use PHPUnit\Framework\TestCase;
 use OzanAkman\ServerPlanner\Resources;
 use OzanAkman\ServerPlanner\ServerType;
-use PHPUnit\Framework\TestCase;
 
 class ServerTypeTest extends TestCase
 {

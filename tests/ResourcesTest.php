@@ -2,8 +2,8 @@
 
 namespace OzanAkman\ServerPlanner\Tests;
 
-use OzanAkman\ServerPlanner\Resources;
 use PHPUnit\Framework\TestCase;
+use OzanAkman\ServerPlanner\Resources;
 
 class ResourcesTest extends TestCase
 {

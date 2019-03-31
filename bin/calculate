@@ -3,10 +3,10 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
+use OzanAkman\ServerPlanner;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use OzanAkman\ServerPlanner;
 
 define('DATA_PATH', __DIR__ . '/../data');
 

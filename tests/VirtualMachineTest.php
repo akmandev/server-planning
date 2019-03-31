@@ -2,9 +2,9 @@
 
 namespace OzanAkman\ServerPlanner\Tests;
 
+use PHPUnit\Framework\TestCase;
 use OzanAkman\ServerPlanner\Resources;
 use OzanAkman\ServerPlanner\VirtualMachine;
-use PHPUnit\Framework\TestCase;
 
 class VirtualMachineTest extends TestCase
 {
