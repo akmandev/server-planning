@@ -1,0 +1,19 @@
+{
+    "name": "ozanakman/server-planning",
+    "description": "Calculate the amount of servers based on VM resources",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ozan Akman",
+            "email": "info@ozanakman.com.tr"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=7.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.0"
+    }
+}
