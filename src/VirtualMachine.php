@@ -4,10 +4,7 @@ namespace OzanAkman\ServerPlanner;
 
 class VirtualMachine
 {
-    /**
-     * @var Resources
-     */
-    private $resources;
+    private Resources $resources;
 
     public function __construct(Resources $resources)
     {

@@ -11,19 +11,19 @@ class Resources
      * Capacity of the CPU.
      * @var int
      */
-    private $cpu;
+    private int $cpu;
 
     /**
      * Capacity of the RAM.
      * @var int
      */
-    private $ram;
+    private int $ram;
 
     /**
      * Capacity of the HDD.
      * @var int
      */
-    private $hdd;
+    private int $hdd;
 
     public function __construct(int $cpu, int $ram, int $hdd)
     {

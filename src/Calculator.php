@@ -6,7 +6,7 @@ use Exception;
 
 final class Calculator
 {
-    private $servers = [];
+    private array $servers = [];
 
     /**
      * @param ServerType $serverType

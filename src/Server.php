@@ -12,13 +12,13 @@ class Server
     /**
      * @var ServerType
      */
-    private $serverType;
+    private ServerType $serverType;
 
     /**
      * Current available resources.
      * @var Resources
      */
-    private $currentResources;
+    private Resources $currentResources;
 
     public function __construct(ServerType $serverType)
     {
@@ -51,7 +51,7 @@ class Server
      * @param VirtualMachine $virtualMachine
      * @throws LogicException
      */
-    public function addVirtualMachine(VirtualMachine $virtualMachine)
+    public function addVirtualMachine(VirtualMachine $virtualMachine): void
     {
         // If this method is invoked without prior check for available resources,
         // we should not allow to add virtual machine.
@@ -64,9 +64,6 @@ class Server
         $this->currentResources = $this->currentResources->reducedBy($virtualMachine->getResources());
     }
 
-    /**
-     * @return Resources
-     */
     public function getCurrentResources(): Resources
     {
         return $this->currentResources;

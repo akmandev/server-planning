@@ -3,7 +3,10 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-use OzanAkman\ServerPlanner;
+use OzanAkman\ServerPlanner\Calculator;
+use OzanAkman\ServerPlanner\Resources;
+use OzanAkman\ServerPlanner\ServerType;
+use OzanAkman\ServerPlanner\VirtualMachine;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -18,31 +21,37 @@ define('DATA_PATH', __DIR__ . '/../data');
             '==========================',
             '',
         ]);
-
+        
         $serverTypeComponents = json_decode(file_get_contents(DATA_PATH . '/ServerType.json'));
-        $serverTypeResources = new ServerPlanner\Resources(
+        $serverTypeResources = new Resources(
             $serverTypeComponents->cpu,
             $serverTypeComponents->ram,
             $serverTypeComponents->hdd
         );
-        $serverType = new ServerPlanner\ServerType($serverTypeResources);
-
+        $serverType = new ServerType($serverTypeResources);
+        
         $virtualMachineComponents = json_decode(file_get_contents(DATA_PATH . '/VirtualMachines.json'));
         $virtualMachines = [];
-
+        
         foreach ($virtualMachineComponents as $component) {
-            $virtualMachines[] = new ServerPlanner\VirtualMachine(
-                new ServerPlanner\Resources(
+            $virtualMachines[] = new VirtualMachine(
+                new Resources(
                     $component->cpu,
                     $component->ram,
                     $component->hdd
                 )
             );
         }
-
-        $result = (new ServerPlanner\Calculator())->calculate($serverType, $virtualMachines);
-
-        $output->writeln("{$result} Servers needed for " . count($virtualMachines) . " Virtual Machines");
+        
+        $result = (new Calculator())->calculate($serverType, $virtualMachines);
+        
+        $output->writeln(
+            sprintf(
+                "{%s} Servers needed for %s Virtual Machines",
+                $result,
+                count($virtualMachines)
+            )
+        );
     })
     ->getApplication()
     ->setDefaultCommand('calculate', true)
